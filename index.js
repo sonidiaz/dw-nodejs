@@ -21,6 +21,15 @@ const requestHandler = async (request, response) => {
     response.writeHead(200, {'Content-Type': 'application/json'});
     response.write(JSON.stringify(responseData));
     response.end();
+  }else if (request.url === '/api-rtve') {
+    const fetchdata = await fetch('http://srv-php.irtve.rtve.int/aplicaciones/infografias/api-request/related.json', {
+      method: 'GET',
+    });
+    const responseData = await fetchdata.json();
+    
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.write(JSON.stringify(responseData));
+    response.end();
   } else {
     // Si la URL solicitada no es el root, responder con un 404
     response.writeHead(404, {'Content-Type': 'text/plain'});
